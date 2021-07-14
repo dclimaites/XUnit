@@ -20,7 +20,7 @@ namespace Alura.LeilaoOnline.XUnitTestes
 
             for (int i = 0; i < lances.Length; i++)
             {
-                if(i % 2 == 0)
+                if (i % 2 == 0)
                     leilao.RecebeLance(fulano, lances[i]);
                 else
                     leilao.RecebeLance(maria, lances[i]);
@@ -39,6 +39,7 @@ namespace Alura.LeilaoOnline.XUnitTestes
             //arrange
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
+            leilao.IniciaPregao();
             foreach (var item in lances)
             {
                 leilao.RecebeLance(fulano, item);
@@ -47,6 +48,18 @@ namespace Alura.LeilaoOnline.XUnitTestes
             leilao.TerminaPregao();
             //asset
             Assert.Equal(valorObtido, leilao.Ganhador.Valor);
+        }
+
+        [Fact]
+        public void LancaInvalidOperationExceptionDadoTerminaPregaoSemInicio()
+        {
+            //arrange
+            var leilao = new Leilao("Auto da compadecida");
+            //assert
+            Assert.Throws<InvalidOperationException>(
+                //act
+                () => leilao.TerminaPregao());
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Alura.LeilaoOnline.Core
@@ -46,6 +47,8 @@ namespace Alura.LeilaoOnline.Core
 
         public void TerminaPregao()
         {
+            if (Status != StatusLeilao.EmAndamento)
+                throw new InvalidOperationException();
             Status = StatusLeilao.Finalizado;
             Ganhador = Lances
                 .DefaultIfEmpty(new Lance(null, 0))

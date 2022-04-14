@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alura.LeilaoOnline.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,13 +16,15 @@ namespace Alura.LeilaoOnline.Core
         private IList<Lance> _lances;
         public IEnumerable<Lance> Lances => _lances;
         public string Peca { get; }
+        public IModalidadeAvaliacao Avaliacao { get; }
         public Lance Ganhador { get; private set; }
         public StatusLeilao Status { get; private set; }
         public Interessada UltimoCliente { get; private set; }
 
-        public Leilao(string peca)
+        public Leilao(string peca, IModalidadeAvaliacao avaliacao)
         {
             Peca = peca;
+            Avaliacao = avaliacao;
             _lances = new List<Lance>();
             Status = StatusLeilao.Aberto;
         }
@@ -50,10 +53,7 @@ namespace Alura.LeilaoOnline.Core
             if (Status != StatusLeilao.EmAndamento)
                 throw new InvalidOperationException();
             Status = StatusLeilao.Finalizado;
-            Ganhador = Lances
-                .DefaultIfEmpty(new Lance(null, 0))
-                .OrderBy(lance => lance.Valor)
-                .Last();
+            Ganhador = Avaliacao.Avaliar(this);
         }
     }
 }

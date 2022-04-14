@@ -13,7 +13,8 @@ namespace Alura.LeilaoOnline.XUnitTestes
         public void RetornaQuantidadeLancesDadoLeilaoFinalizado(int qtdLancesObtido, double[] lances)
         {
             //arrange
-            var leilao = new Leilao("Van Gogh");
+            var avaliacao = new MaiorValor();
+            var leilao = new Leilao("Van Gogh", avaliacao);
             var rajao = new Interessada("Rajão", leilao);
             var maria = new Interessada("Maria", leilao);
             leilao.IniciaPregao();
@@ -39,7 +40,8 @@ namespace Alura.LeilaoOnline.XUnitTestes
         public void RetornaQuantidadeLancesDadoLancesConsecutivosDoMesmoCliente(int qtdLancesObtido, double[] lances)
         {
             //arrange
-            var leilao = new Leilao("Van Gogh");
+            var avaliacao = new MaiorValor();
+            var leilao = new Leilao("Van Gogh", avaliacao);
             var rajao = new Interessada("Rajão", leilao);
             leilao.IniciaPregao();
             //act

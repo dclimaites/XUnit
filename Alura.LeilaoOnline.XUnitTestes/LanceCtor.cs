@@ -10,7 +10,8 @@ namespace Alura.LeilaoOnline.XUnitTestes
         public void LanceArgumentExceptionDadoLanceComValorNegativo()
         {
             //arrange
-            var leilao = new Leilao("Pablo Picasso");
+            var avaliacao = new MaiorValor();
+            var leilao = new Leilao("Pablo Picasso", avaliacao);
             var fulano = new Interessada("Fulano", leilao);
             leilao.IniciaPregao();
             //Assert
